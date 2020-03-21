@@ -1,0 +1,72 @@
+{
+  "name": "pyro-config",
+  "version": "1.0.0",
+  "description": "Pyro-Config is a simple, strongly opinionated fully typed config management library.",
+  "keywords": [
+    "config",
+    "node-config",
+    "typescript"
+  ],
+  "scripts": {
+    "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx ./",
+    "test": "jest",
+    "build": "tsc --project config && rollup -c config/rollup.config.js",
+    "dev": "tsc --project config && rollup -c config/rollup.config.js --watch",
+    "publish-patch": "git pull origin master && yarn build && yarn publish --patch && git push origin master --tags",
+    "publish-minor": "git pull origin master && yarn build && yarn publish --minor && git push origin master --tags",
+    "publish-major": "git pull origin master && yarn build && yarn publish --major && git push origin master --tags"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "yarn lint",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn test"
+    }
+  },
+  "main": "dist/pyro-config.cjs.js",
+  "module": "dist/pyro-config.esm.js",
+  "browser": "dist/pyro-config.umd.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": "https://github.com/treylon/pyro-config.git",
+  "author": "Lukas Kuehnert <lukas.kuehnert@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^25.1.4",
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "jest": "^25.1.0",
+    "lint-staged": "^10.0.8",
+    "prettier": "^2.0.1",
+    "rollup": "^2.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.26.0",
+    "ts-jest": "^25.2.1",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.8.3"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "useTabs": false,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "bracketSpacing": true,
+    "arrowParens": "avoid"
+  },
+  "dependencies": {
+    "change-case": "^4.1.1"
+  },
+  "sideEffects": false
+}
