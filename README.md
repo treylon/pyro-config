@@ -1,6 +1,6 @@
 # Pyro Config
 
-The idea of pyro-config is the offer the **simplest** solution to load, validate and access your apps's **configuration**, following the 12-factor-app standards.
+The idea of pyro-config is the offer the **simplest** solution to load, validate and access your apps's **configuration**, following (The 12-factor App)[https://12factor.net/] standards.
 
 It's built with **TypeScript** and outputs the configuration **100% typed** and validated.
 
@@ -8,7 +8,7 @@ It's built with **TypeScript** and outputs the configuration **100% typed** and 
 
 Using yarn
 
-```html
+```
 yarn add pyro-config
 ```
 
@@ -40,7 +40,7 @@ const config = Config.create({
   },
   numberValue: {
     type: Number,
-    default: 'something',
+    default: 123,
     description: 'Test description',
   },
 })
