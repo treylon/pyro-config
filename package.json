@@ -8,7 +8,7 @@
     "typescript"
   ],
   "scripts": {
-    "lint": "eslint --fix --ext .ts,.js ./ && tsc --pretty",
+    "lint": "eslint --fix --ext .ts,.js src config && tsc --pretty",
     "test": "jest",
     "build": "tsc --project config && rollup -c config/rollup.config.js",
     "dev": "tsc --project config && rollup -c config/rollup.config.js --watch",
@@ -17,14 +17,13 @@
     "publish-major": "git pull origin master && yarn build && yarn publish --major && git push origin master --tags"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,jsx}": [
-      "yarn lint",
-      "git add"
+    "*.ts": [
+      "yarn lint"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
+      "pre-commit": "typedoc && lint-staged",
       "pre-push": "yarn test"
     }
   },
