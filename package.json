@@ -17,13 +17,14 @@
     "publish-major": "git pull origin master && yarn build && yarn publish --major && git push origin master --tags"
   },
   "lint-staged": {
-    "*.ts": [
-      "yarn lint"
+    "src/**/*.ts": [
+      "yarn lint",
+      "typedoc"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "typedoc && lint-staged",
+      "pre-commit": "lint-staged",
       "pre-push": "yarn test"
     }
   },
