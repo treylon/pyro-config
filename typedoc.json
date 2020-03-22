@@ -1,0 +1,13 @@
+{
+  "inputFiles": ["./src"],
+  "mode": "file",
+  "out": "docs",
+  "includeDeclarations": true,
+  "excludeExternals": true,
+  "excludeNotExported": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "exclude": ["*.test.ts"],
+  "externalPattern": ["*.test.ts"],
+  "includeVersion": true
+}

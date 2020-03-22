@@ -4,6 +4,7 @@ config/*.js
 config/*.js.map
 .rpt2_cache
 coverage
+docs
 
 # Created by https://www.gitignore.io/api/node,webstorm+all
 

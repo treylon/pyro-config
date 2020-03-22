@@ -26,11 +26,42 @@ function parse(value: string | null | undefined, attribute: Attribute): any {
   }
 }
 
+/**
+ * This will load, parse, validate and hold your applications configuration. Use the static `create`
+ * accessor to create a new configuration.
+ *
+ * ```typescript
+ * const config = Config.create({
+ *   serviceEnabled: {
+ *     type: Boolean,
+ *     description: 'Determine whether service is enabled',
+ *     default: true,
+ *     env: 'ENABLED'
+ *   },
+ *   serviceUrl: {
+ *     type: String,
+ *     description: 'Public service url for accessing data',
+ *     nullable: true,
+ *   },
+ * })
+ * ```
+ */
 class Config<C extends ConfigValueObject, S extends Schema<C>> {
+  /**
+   * Create a new configuration instance, which will include loading and parsing the configuration
+   * from `process.env`.
+   *
+   * @param schema Configuration schema that will be used for parsing `process.env`
+   */
   public static create<C extends ConfigValueObject, S extends Schema<C>>(schema: S): Config<C, S> {
     return new Config(schema)
   }
 
+  /**
+   * Retrieve configuration value.
+   *
+   * @param key Configuration value key
+   */
   public get<K extends keyof S>(key: K): ConfigType<C, S>[K] {
     return this.config[key]
   }
