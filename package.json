@@ -1,6 +1,6 @@
 {
   "name": "pyro-config",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Pyro-Config is a simple, strongly opinionated fully typed config management library.",
   "keywords": [
     "config",
