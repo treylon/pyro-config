@@ -6,14 +6,14 @@ import {
   Attribute,
   BooleanAttribute,
   ConfigType,
-  ConfigValue,
   ConfigValueObject,
   NumberAttribute,
   Schema,
   StringAttribute,
 } from './types'
 
-function parse<A extends ConfigValue>(value: string | null | undefined, attribute: Attribute): any {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function parse<A extends Attribute>(value: string | null | undefined, attribute: A): any {
   switch (attribute.type) {
     case Boolean:
       return parseBooleanValue(value, attribute as BooleanAttribute)
@@ -25,31 +25,32 @@ function parse<A extends ConfigValue>(value: string | null | undefined, attribut
   throw new Error('Invalid type has been passed in')
 }
 
-class Config<C extends ConfigValueObject, T extends Schema<C>> {
-  public static create<C extends ConfigValueObject, T extends Schema<C>>(schema: T): Config<C, T> {
-    const instance = new Config(schema)
-    instance.parse()
-    return instance
+class Config<C extends ConfigValueObject, S extends Schema<C>> {
+  public static create<C extends ConfigValueObject, S extends Schema<C>>(schema: S): Config<C, S> {
+    return new Config(schema)
   }
 
-  public get<K extends keyof T>(key: K): ConfigType<C, T>[K] {
+  public get<K extends keyof S>(key: K): ConfigType<C, S>[K] {
     return this.config[key]
   }
 
-  private readonly schema: T
-  private config: ConfigType<C, T> = {} as any
+  private readonly schema: S
+  private readonly config: ConfigType<C, S>
 
-  private constructor(schema: T) {
+  private constructor(schema: S) {
     this.schema = schema
+    this.config = this.loadAndParse()
   }
 
-  private parse(): void {
+  private loadAndParse(): ConfigType<C, S> {
     const env = process.env
+    const parsedConfig: Partial<ConfigType<C, S>> = {}
     for (const [key, value] of Object.entries(this.schema)) {
-      const configKey = key as keyof T
+      const configKey = key as keyof S
       const envName = value.env || constantCase(key)
-      this.config[configKey] = parse(env[envName], value)
+      parsedConfig[configKey] = parse(env[envName], value)
     }
+    return parsedConfig as ConfigType<C, S>
   }
 }
 

@@ -8,7 +8,7 @@
     "typescript"
   ],
   "scripts": {
-    "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx ./",
+    "lint": "eslint --fix --ext .ts,.js ./ && tsc --pretty",
     "test": "jest",
     "build": "tsc --project config && rollup -c config/rollup.config.js",
     "dev": "tsc --project config && rollup -c config/rollup.config.js --watch",
