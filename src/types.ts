@@ -1,6 +1,9 @@
 export type SimpleConfigValue = StringConstructor | NumberConstructor | BooleanConstructor
 
-export type CustomConfigValue = (value: string) => ReturnType<SimpleConfigValue>
+export type CustomConfigValue = (
+  value: string | null | undefined,
+  attribute: CustomAttribute
+) => ReturnType<SimpleConfigValue>
 
 export type ConfigValue = SimpleConfigValue | CustomConfigValue
 
@@ -13,10 +16,10 @@ export type Schema<C extends ConfigValueObject> = {
 }
 
 export type ConfigType<C extends ConfigValueObject, S extends Schema<C>> = {
-  [key in keyof S]: S[key]['type']
+  [key in keyof S]: ReturnType<S[key]['type']>
 }
 
-interface BaseAttribute<T extends SimpleConfigValue> {
+interface BaseAttribute<T extends ConfigValue> {
   /**
    * Type of config value
    */
@@ -53,4 +56,6 @@ export interface StringAttribute extends BaseAttribute<StringConstructor>, Nulla
 
 export interface NumberAttribute extends BaseAttribute<NumberConstructor>, NullableAttribute {}
 
-export type Attribute = BooleanAttribute | StringAttribute | NumberAttribute
+export interface CustomAttribute extends BaseAttribute<CustomConfigValue>, NullableAttribute {}
+
+export type Attribute = BooleanAttribute | StringAttribute | NumberAttribute | CustomAttribute

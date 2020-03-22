@@ -13,7 +13,7 @@ import {
 } from './types'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function parse<A extends Attribute>(value: string | null | undefined, attribute: A): any {
+function parse(value: string | null | undefined, attribute: Attribute): any {
   switch (attribute.type) {
     case Boolean:
       return parseBooleanValue(value, attribute as BooleanAttribute)
@@ -21,8 +21,9 @@ function parse<A extends Attribute>(value: string | null | undefined, attribute:
       return parseStringValue(value, attribute as StringAttribute)
     case Number:
       return parseNumberValue(value, attribute as NumberAttribute)
+    default:
+      return attribute.type(value, attribute)
   }
-  throw new Error('Invalid type has been passed in')
 }
 
 class Config<C extends ConfigValueObject, S extends Schema<C>> {
