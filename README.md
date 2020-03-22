@@ -35,13 +35,13 @@ const config = Config.create({
   },
   stringValue: {
     type: String,
-    default: 'something',
+    nullable: true,
     description: 'Test description',
   },
   numberValue: {
     type: Number,
-    default: 123,
     description: 'Test description',
+    env: 'ANOTHER_NUMBER_VALUE',
   },
 })
 
@@ -52,4 +52,4 @@ const numberValue = config.get('numberValue')
 
 ## Docs
 
-To do
+Access the docs [here](/docs).
