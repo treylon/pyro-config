@@ -52,4 +52,4 @@ const numberValue = config.get('numberValue')
 
 ## Docs
 
-Access the docs [here](/docs).
+Access the docs [here](https://treylon.github.io/pyro-config/).
