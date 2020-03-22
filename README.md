@@ -1,6 +1,6 @@
 # Pyro Config
 
-The idea of pyro-config is the offer the **simplest** solution to load, validate and access your apps's **configuration**, following (The 12-factor App)[https://12factor.net/] standards.
+The idea of pyro-config is the offer the **simplest** solution to load, validate and access your apps's **configuration**, following [The 12-factor App](https://12factor.net/) standards.
 
 It's built with **TypeScript** and outputs the configuration **100% typed** and validated.
 
